@@ -3,6 +3,7 @@ package com.javarush.stockvault.service;
 import com.javarush.stockvault.dto.LoginResponse;
 import com.javarush.stockvault.entity.User;
 import com.javarush.stockvault.repository.UserRepository;
+import com.javarush.stockvault.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     public User createUser(String email, String username, String password) {
         User user = new User();
@@ -26,6 +28,7 @@ public class UserService {
             throw new RuntimeException("Invalid password");
         }
 
-        return new LoginResponse(user.getId(), user.getEmail());
+        String token = jwtService.generateToken(user.getEmail());
+        return new LoginResponse(token);
     }
 }

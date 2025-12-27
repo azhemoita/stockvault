@@ -1,10 +1,8 @@
 HELP.md
 target/
 src/main/dao
-src/main/dto
 src/main/exception
 src/main/integration
-src/main/security
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
