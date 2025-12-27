@@ -1,5 +1,7 @@
 package com.javarush.stockvault.controller;
 
+import com.javarush.stockvault.dto.LoginRequest;
+import com.javarush.stockvault.dto.LoginResponse;
 import com.javarush.stockvault.entity.User;
 import com.javarush.stockvault.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,14 @@ public class UserController {
                 user.getPassword()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        LoginResponse response = userService.login(
+                request.getEmail(),
+                request.getPassword()
+        );
+        return ResponseEntity.ok(response);
     }
 }
