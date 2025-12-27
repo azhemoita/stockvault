@@ -20,6 +20,7 @@ public class UserService {
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_USER");
         return userRepository.save(user);
     }
 
@@ -30,7 +31,7 @@ public class UserService {
             throw new RuntimeException("Invalid password");
         }
 
-        String token = jwtService.generateToken(user.getEmail());
+        String token = jwtService.generateToken(user.getEmail(), user.getRole());
         return new LoginResponse(token);
     }
 }
