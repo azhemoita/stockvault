@@ -5,6 +5,7 @@ import com.javarush.stockvault.entity.User;
 import com.javarush.stockvault.repository.UserRepository;
 import com.javarush.stockvault.security.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class UserService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid password");
+            throw new BadCredentialsException("Invalid password");
         }
 
         String token = jwtService.generateToken(user.getEmail(), user.getRole());
