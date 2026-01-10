@@ -2,15 +2,22 @@ spring:
   application:
     name: StockVault
 
+  profiles:
+    active: dev
+
   datasource:
     url: jdbc:postgresql://localhost:5432/stockvault
     username: stockvault
     password: stockvault
 
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
