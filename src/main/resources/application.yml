@@ -6,9 +6,9 @@ spring:
     active: dev
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/stockvault
-    username: stockvault
-    password: stockvault
+    url: ${ DB_URL:jdbc:postgresql://localhost:5432/stockvault}
+    username: ${ DB_USERNAME:stockvault}
+    password: ${ DB_PASSWORD:stockvault}
 
   liquibase:
     enabled: true
@@ -22,3 +22,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  security:
+    jwt:
+      secret: ${ JWT_SECRET:super-puper-secret-key-32-bytes-minimum}
