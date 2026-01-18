@@ -26,3 +26,7 @@ spring:
   security:
     jwt:
       secret: ${ JWT_SECRET:super-puper-secret-key-32-bytes-minimum}
+
+massive:
+  api:
+    key: ${ API_KEY:km54pJSTUeOrgyX6pVPuqW0zw5ZjVTQg}

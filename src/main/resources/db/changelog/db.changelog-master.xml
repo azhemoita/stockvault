@@ -7,4 +7,7 @@
     <include file="db/changelog/changes/002-create-stocks-table.xml"/>
     <include file="db/changelog/changes/003-create-stock-prices-table.xml"/>
     <include file="db/changelog/changes/004-user-saved-stocks.xml"/>
+    <include file="db/changelog/changes/005-create-tickers-table.xml"/>
+    <include file="db/changelog/changes/006-create-user-stock-prices.xml"/>
+    <include file="db/changelog/changes/007-drop-legacy-stock-tables.xml"/>
 </databaseChangeLog>

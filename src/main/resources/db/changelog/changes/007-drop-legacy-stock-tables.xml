@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
+    <changeSet id="007-drop-legacy-stock-tables" author="stockvault">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="user_saved_stocks" />
+            <tableExists tableName="stock_prices" />
+            <tableExists tableName="stocks" />
+        </preConditions>
+
+        <dropTable tableName="user_saved_stocks" />
+        <dropTable tableName="stock_prices" />
+        <dropTable tableName="stocks" />
+    </changeSet>
+
+</databaseChangeLog>

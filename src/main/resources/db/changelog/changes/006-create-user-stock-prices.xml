@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
+    <changeSet id="006-create-user-stock-prices" author="stockvault">
+        <createTable tableName="user_stock_prices">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="ticker_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="date" type="DATE">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="open" type="DOUBLE PRECISION">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="close" type="DOUBLE PRECISION">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="high" type="DOUBLE PRECISION">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="low" type="DOUBLE PRECISION">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="volume" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_stock_prices" baseColumnNames="user_id" constraintName="fk_user_stock_prices_user"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableName="user_stock_prices" baseColumnNames="ticker_id"
+                                 constraintName="fk_user_stock_prices_ticker"
+                                 referencedTableName="tickers"
+                                 referencedColumnNames="id" />
+
+        <addUniqueConstraint tableName="user_stock_prices" columnNames="user_id, ticker_id, date" constraintName="uk_user_ticker_date" />
+
+    </changeSet>
+
+</databaseChangeLog>

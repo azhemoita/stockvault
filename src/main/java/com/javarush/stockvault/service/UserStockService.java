@@ -2,11 +2,9 @@ package com.javarush.stockvault.service;
 
 import com.javarush.stockvault.dto.SavedStockResponse;
 import com.javarush.stockvault.dto.StockPriceResponse;
-import com.javarush.stockvault.entity.Stock;
+import com.javarush.stockvault.entity.Ticker;
 import com.javarush.stockvault.entity.User;
-import com.javarush.stockvault.repository.StockPriceRepository;
-import com.javarush.stockvault.repository.StockRepository;
-import com.javarush.stockvault.repository.UserRepository;
+import com.javarush.stockvault.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +14,18 @@ import java.util.List;
 @AllArgsConstructor
 public class UserStockService {
     private final UserRepository userRepository;
-    private final StockRepository stockRepository;
-    private final StockPriceRepository stockPriceRepository;
+    private final TickerRepository tickerRepository;
+    private final UserStockPriceRepository userStockPriceRepository;
 
-    public SavedStockResponse getSavedStock(String userEmail, String ticker) {
+    public SavedStockResponse getSavedStock(String userEmail, String tickerSymbol) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Stock stock = stockRepository.findByTicker(ticker)
+        Ticker ticker = tickerRepository.findBySymbol(tickerSymbol)
                 .orElseThrow(() -> new RuntimeException("Ticker not found"));
 
-        List<StockPriceResponse> data = stockPriceRepository.findByStockOrderByDateAsc(stock)
+        List<StockPriceResponse> data = userStockPriceRepository
+                .findByUserIdAndTickerIdOrderByDateAsc(user.getId(), ticker.getId())
                 .stream()
                 .map(p -> new StockPriceResponse(
                         p.getDate(),
@@ -38,8 +37,8 @@ public class UserStockService {
                 )).toList();
 
         return new SavedStockResponse(
-                stock.getId(),
-                stock.getTicker(),
+                ticker.getId(),
+                ticker.getSymbol(),
                 data
         );
     }
