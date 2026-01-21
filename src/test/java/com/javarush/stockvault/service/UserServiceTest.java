@@ -6,6 +6,7 @@ import com.javarush.stockvault.security.JwtService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,7 +30,7 @@ public class UserServiceTest {
     @Mock
     PasswordEncoder passwordEncoder;
 
-    @Mock
+    @InjectMocks
     UserService userService;
 
     @Test
