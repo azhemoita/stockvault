@@ -1,6 +1,7 @@
 package com.javarush.stockvault.massive;
 
 import com.javarush.stockvault.dto.MassiveAggregatesResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -8,9 +9,13 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 
 @Component
+@RequiredArgsConstructor
 public class MassiveClient {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    @Value("${massive.api.base-url}")
+    private String baseUrl;
+
+    private final RestTemplate restTemplate;
 
     @Value("${massive.api.key}")
     private String apiKey;
@@ -21,8 +26,8 @@ public class MassiveClient {
             LocalDate end
     ) {
         String url = String.format(
-                "https://api.massive.com/v2/aggs/ticker/%s/range/1/day/%s/%s" +
-                "?adjusted=true&sort=asc&limit=500&apiKey=%s",
+                "%s/v2/aggs/ticker/%s/range/1/day/%s/%s?adjusted=true&sort=asc&limit=500&apiKey=%s",
+                baseUrl,
                 ticker,
                 start,
                 end,
