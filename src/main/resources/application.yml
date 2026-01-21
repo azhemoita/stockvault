@@ -29,4 +29,5 @@ spring:
 
 massive:
   api:
+    base-url: https://api.massive.com
     key: ${ API_KEY:km54pJSTUeOrgyX6pVPuqW0zw5ZjVTQg}
